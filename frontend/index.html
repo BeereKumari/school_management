@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SchoolMap — School Management System</title>
+  <meta name="description" content="Manage and discover schools by proximity">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1F3EB;</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div id="toast-container"></div>
+
+  <!-- ─── NAVIGATION BAR ─────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <div class="logo-mark">SM</div>
+        <span class="logo-text">School<span class="logo-highlight">Map</span></span>
+      </a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#dashboard" class="nav-link" data-section="dashboard">Dashboard</a></li>
+        <li><a href="#add-school" class="nav-link" data-section="add-school">Add School</a></li>
+        <li><a href="#find-schools" class="nav-link" data-section="find-schools">Find Schools</a></li>
+      </ul>
+      <div class="nav-status" id="nav-status">
+        <span class="status-dot" id="status-dot"></span>
+        <span class="status-text" id="status-text">Checking...</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO SECTION ───────────── -->
+  <section class="hero" id="hero">
+    <div class="hero-slider" id="hero-slider">
+      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1600&q=80');"></div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?w=1600&q=80');"></div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1600&q=80');"></div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=1600&q=80');"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Proximity-Based Discovery
+        </span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-title-line">Manage Schools,</span>
+        <span class="hero-title-accent">Find Nearest.</span>
+      </h1>
+      <p class="hero-sub">
+        Add schools to the directory and instantly discover the closest ones
+        to any location using real geographic distance calculation.
+      </p>
+      <div class="hero-cta">
+        <a href="#add-school" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Add a School
+        </a>
+        <a href="#find-schools" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          Find Schools
+        </a>
+      </div>
+    </div>
+    <div class="slider-dots" id="slider-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+      <span class="dot" data-index="3"></span>
+    </div>
+    <div class="scroll-indicator">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── DASHBOARD SECTION ──────── -->
+  <section class="section" id="dashboard">
+    <div class="section-inner">
+      <div class="section-header animate-on-view">
+        <p class="section-eyebrow">OVERVIEW</p>
+        <h2 class="section-title">System Dashboard</h2>
+        <p class="section-sub">Live metrics from the school directory</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card animate-on-view" style="animation-delay: 0ms">
+          <div class="stat-icon-box stat-icon-school">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c0 .6.4 1 1 1h10c.6 0 1-.4 1-1v-5"></path>
+              <rect x="10" y="14" width="4" height="4" rx="1"></rect>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number" id="stat-total">—</div>
+            <div class="stat-label">Schools Registered</div>
+            <div class="stat-footer">In the directory</div>
+          </div>
+        </div>
+        <div class="stat-card animate-on-view" style="animation-delay: 100ms">
+          <div class="stat-icon-box stat-icon-city">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number" id="stat-cities">—</div>
+            <div class="stat-label">Cities Covered</div>
+            <div class="stat-footer">Unique locations</div>
+          </div>
+        </div>
+        <div class="stat-card animate-on-view" style="animation-delay: 200ms">
+          <div class="stat-icon-box stat-icon-latest">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number" id="stat-latest">—</div>
+            <div class="stat-label">Latest School Added</div>
+            <div class="stat-footer">Most recent entry</div>
+          </div>
+        </div>
+        <div class="stat-card animate-on-view" style="animation-delay: 300ms">
+          <div class="stat-icon-box stat-icon-api">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number" id="stat-status" style="color: var(--color-success); font-size: var(--text-xl);">Online</div>
+            <div class="stat-label">API Status</div>
+            <div class="stat-footer">All systems operational</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ADD SCHOOL SECTION ─────── -->
+  <section class="section section-alt" id="add-school">
+    <div class="section-inner" style="max-width: 800px;">
+      <div class="section-header animate-on-view">
+        <p class="section-eyebrow">SCHOOL DIRECTORY</p>
+        <h2 class="section-title">Add New School</h2>
+        <p class="section-sub">Fill in the details below to register a school in the system</p>
+      </div>
+      <div class="glass-card animate-on-view">
+        <form id="add-school-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="school-name">School Name <span class="required">*</span></label>
+            <input type="text" id="school-name" placeholder="e.g. Delhi Public School" maxlength="255" autocomplete="off">
+            <span class="field-error" id="error-school-name"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="school-address">Address <span class="required">*</span></label>
+            <input type="text" id="school-address" placeholder="e.g. Mathura Road, New Delhi, India" maxlength="500" autocomplete="off">
+            <span class="field-error" id="error-school-address"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="school-lat">Latitude <span class="required">*</span></label>
+              <input type="number" id="school-lat" step="any" placeholder="e.g. 28.5562" class="input-mono">
+              <span class="field-hint">Valid range: -90.000000 to 90.000000</span>
+              <span class="field-error" id="error-school-lat"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="school-lon">Longitude <span class="required">*</span></label>
+              <input type="number" id="school-lon" step="any" placeholder="e.g. 77.2722" class="input-mono">
+              <span class="field-hint">Valid range: -180.000000 to 180.000000</span>
+              <span class="field-error" id="error-school-lon"></span>
+            </div>
+          </div>
+          <div class="quick-fill">
+            <a href="#" id="quick-fill-sample" class="quick-fill-link">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              Use a sample coordinate &rarr;
+            </a>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="add-school-btn">
+            <span class="btn-text">Add School to Directory</span>
+          </button>
+        </form>
+      </div>
+      <div class="recent-submissions animate-on-view">
+        <h3 class="recent-title">Recently Added</h3>
+        <div id="recent-submissions">
+          <p class="recent-empty">None yet</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FIND SCHOOLS SECTION ───── -->
+  <section class="section" id="find-schools">
+    <div class="section-inner">
+      <div class="section-header animate-on-view">
+        <p class="section-eyebrow">PROXIMITY SEARCH</p>
+        <h2 class="section-title">Find Nearest Schools</h2>
+        <p class="section-sub">Enter your coordinates to discover schools sorted by distance</p>
+      </div>
+      <div class="find-layout">
+        <div class="find-form-col animate-on-view">
+          <div class="glass-card">
+            <h3 class="find-form-title">Your Location</h3>
+            <div class="form-group">
+              <label class="form-label" for="user-lat">Your Latitude <span class="required">*</span></label>
+              <input type="number" id="user-lat" step="any" placeholder="28.6139" class="input-mono">
+              <span class="field-error" id="error-user-lat"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="user-lon">Your Longitude <span class="required">*</span></label>
+              <input type="number" id="user-lon" step="any" placeholder="77.2090" class="input-mono">
+              <span class="field-error" id="error-user-lon"></span>
+            </div>
+            <div class="preset-locations">
+              <button type="button" class="preset-btn" data-lat="28.6139" data-lon="77.2090">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                New Delhi
+              </button>
+              <button type="button" class="preset-btn" data-lat="19.0760" data-lon="72.8777">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Mumbai
+              </button>
+              <button type="button" class="preset-btn" data-lat="12.9716" data-lon="77.5946">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Bangalore
+              </button>
+            </div>
+            <button type="button" class="btn btn-primary btn-full" id="search-btn">
+              <span class="btn-text">Search Schools Nearby</span>
+            </button>
+            <div class="search-info">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              Results sorted by Haversine distance &mdash; the shortest path over the Earth's surface
+            </div>
+          </div>
+        </div>
+        <div class="find-results-col animate-on-view" style="animation-delay: 150ms;">
+          <div class="results-header">
+            <div>
+              <h3 class="results-title">Results</h3>
+              <span class="results-count" id="result-count">Search to see schools</span>
+            </div>
+            <span class="results-sort">Nearest First &uarr;</span>
+          </div>
+          <div class="results-list" id="results-list">
+            <div class="empty-state">
+              <svg class="empty-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <h4 class="empty-title">Search to see schools</h4>
+              <p class="empty-sub">Enter your location and click search to discover nearby schools</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <div class="footer-logo">
+            <div class="logo-mark">SM</div>
+            <span class="logo-text">School<span class="logo-highlight">Map</span></span>
+          </div>
+          <p class="footer-desc">A modern school management system for discovering and managing educational institutions by geographic proximity. Built with cutting-edge web technologies.</p>
+          <div class="footer-social">
+            <a href="https://github.com/BeereKumari/school_management" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+            <a href="mailto:contact@schoolmap.com" class="social-link" aria-label="Email">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </a>
+            <a href="https://github.com/BeereKumari/school_management/issues" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Report Issue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Platform</h4>
+          <ul class="footer-list">
+            <li><a href="#dashboard" class="footer-link">Dashboard</a></li>
+            <li><a href="#add-school" class="footer-link">Add School</a></li>
+            <li><a href="#find-schools" class="footer-link">Find Schools</a></li>
+            <li><a href="#" class="footer-link" id="api-docs-link">API Reference</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Resources</h4>
+          <ul class="footer-list">
+            <li><a href="/postman/School%20Management%20API.postman_collection.json" download class="footer-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Postman Collection
+            </a></li>
+            <li><a href="https://github.com/BeereKumari/school_management" target="_blank" rel="noopener noreferrer" class="footer-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 4px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub Repository
+            </a></li>
+            <li><a href="https://github.com/BeereKumari/school_management/issues" target="_blank" rel="noopener noreferrer" class="footer-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              Report Issue
+            </a></li>
+            <li><a href="https://github.com/BeereKumari/school_management/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="footer-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              Documentation
+            </a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Tech Stack</h4>
+          <ul class="footer-list">
+            <li><span class="footer-tech">Node.js + Express</span></li>
+            <li><span class="footer-tech">MySQL Database</span></li>
+            <li><span class="footer-tech">Vanilla JavaScript</span></li>
+            <li><span class="footer-tech">Haversine Algorithm</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom-row">
+        <p class="footer-copyright">&copy; 2026 SchoolMap. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="https://github.com/BeereKumari/school_management/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="footer-bottom-link">Privacy Policy</a>
+          <a href="https://github.com/BeereKumari/school_management/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="footer-bottom-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{
+  "info": {
+    "_postman_id": "8eddd1b4-82dd-4764-af44-fa0e99f0e10b",
+    "name": "School Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54677385",
+    "_collection_link": "https://go.postman.co/collection/54677385-8eddd1b4-82dd-4764-af44-fa0e99f0e10b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Add School API",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "List Schools API",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Test School\",\r\n  \"address\": \"123 Main Street, New Delhi\",\r\n  \"latitude\": 28.5562,\r\n  \"longitude\": 77.2722\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/listSchools?latitude=28.6139&longitude=77.2090",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "listSchools"
+          ],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "28.6139"
+            },
+            {
+              "key": "longitude",
+              "value": "77.2090"
+            }
+          ]
+        },
+        "description": "StartFragmentGET API to retrieve schools sorted by nearest distance.\n\nExample Request:  \nGET /listSchools?latitude=28.6139&longitude=77.2090EndFragment\n\nExpected Response:  \nStartFragment{ \"success\": true, \"message\": \"Schools retrieved and sorted by proximity\", \"total\": 12, \"user_location\": { \"latitude\": 28.6139, \"longitude\": 77.209 }, \"data\": \\[ { \"id\": 2, \"name\": \"Kendriya Vidyalaya, Connaught Place\", \"address\": \"Connaught Place, New Delhi, Delhi 110001\", \"latitude\": 28.633, \"longitude\": 77.2194, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 2.35 }, { \"id\": 4, \"name\": \"St. Columba's School\", \"address\": \"Ashok Place, New Delhi, Delhi 110001\", \"latitude\": 28.6378, \"longitude\": 77.2075, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 2.66 }, { \"id\": 1, \"name\": \"Delhi Public School, R.K. Puram\", \"address\": \"Sector 8, R.K. Puram, New Delhi, Delhi 110022\", \"latitude\": 28.5672, \"longitude\": 77.1853, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 5.69 }, { \"id\": 11, \"name\": \"Test School\", \"address\": \"123 Main Street, New Delhi\", \"latitude\": 28.5562, \"longitude\": 77.2722, \"created_at\": \"2026-05-10T12:03:08.000Z\", \"distance_km\": 8.9 }, { \"id\": 12, \"name\": \"Test School\", \"address\": \"123 Main Street, New Delhi\", \"latitude\": 28.5562, \"longitude\": 77.2722, \"created_at\": \"2026-05-10T12:18:04.000Z\", \"distance_km\": 8.9 }, { \"id\": 3, \"name\": \"The Shri Ram School Vasant Vihar\", \"address\": \"Vasant Vihar, New Delhi, Delhi 110057\", \"latitude\": 28.5445, \"longitude\": 77.1577, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 9.2 }, { \"id\": 5, \"name\": \"Ryan International School Rohini\", \"address\": \"Sector 25, Rohini, New Delhi, Delhi 110085\", \"latitude\": 28.72, \"longitude\": 77.1135, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 15.03 }, { \"id\": 6, \"name\": \"Cathedral & John Connon School\", \"address\": \"Fort, Mumbai, Maharashtra 400001\", \"latitude\": 18.9334, \"longitude\": 72.834, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 1164.53 }, { \"id\": 7, \"name\": \"The Bishop's School\", \"address\": \"Camp, Pune, Maharashtra 411001\", \"latitude\": 18.5205, \"longitude\": 73.8567, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 1172.98 }, { \"id\": 10, \"name\": \"Don Bosco School Park Circus\", \"address\": \"Park Circus, Kolkata, West Bengal 700017\", \"latitude\": 22.5448, \"longitude\": 88.3734, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 1306.35 }, { \"id\": 8, \"name\": \"Bishop Cotton Boys' School\", \"address\": \"St. Mark's Road, Bengaluru, Karnataka 560001\", \"latitude\": 12.9716, \"longitude\": 77.5937, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 1739.8 }, { \"id\": 9, \"name\": \"The Lawrence School Lovedale\", \"address\": \"Lovedale, The Nilgiris, Tamil Nadu 643003\", \"latitude\": 11.387, \"longitude\": 76.788, \"created_at\": \"2026-05-10T11:03:53.000Z\", \"distance_km\": 1916.04 } \\]}EndFragment\n\n  \nStartFragmentPOST API to add a new school into the database.  \n  \nExample Request:  \n{  \n\"name\": \"Test School\",  \n\"address\": \"123 Main Street\",  \n\"latitude\": 28.6139,  \n\"longitude\": 77.2090  \n}  \n  \nExpected Response:  \n{  \n\"success\": true,  \n\"message\": \"School added successfully\"  \n}EndFragment"
+      },
+      "response": []
+    }
+  ]
+}
