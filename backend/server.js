@@ -7,7 +7,13 @@
 
 require('dotenv').config();
 const app = require('./app');
+app.get("/", (req, res) => {
+  res.send("Backend Running Successfully");
+});
 const port = parseInt(process.env.PORT, 10) || 3000;
+app.get("/", (req, res) => {
+  res.send("Backend Running Successfully");
+});
 
 app.listen(port, () => {
   console.log('╔═══════════════════════════════════════════╗');
